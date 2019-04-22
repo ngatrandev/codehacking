@@ -7,6 +7,8 @@ use App\User;
 use App\Role;
 use App\Photo;
 use App\Http\Requests\UsersRequest;
+use App\Http\Requests\UsersEditRequest;
+use Illuminate\Support\Facades\Session;
 class AdminUsersController extends Controller
 {
     /**
@@ -85,7 +87,9 @@ class AdminUsersController extends Controller
     public function edit($id)
     {
         //
-        return view('admin.users.edit');
+        $user = User::findOrFail($id);
+        $roles = Role::pluck('name', 'id')-> all();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -95,8 +99,34 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsersEditRequest $request, $id)
     {
+        $pass = $request->password;
+        $input = $request -> all();
+        if(trim($pass)=="") {
+            $input = $request -> except('password');//bỏ pass khỏi req
+
+        } else {
+            $input['password'] = \bcrypt($request->password);
+        }
+        
+        /*
+        Đoạn code trên để test có cần update cả pass hay k?
+        */
+
+        
+        $user = User::findOrFail($id);
+    
+        if ($file = $request -> file('photo_id')) {
+            $name = date('y-m-d', time()) . $file -> getClientOriginalName();
+            $file -> move('images', $name);
+            $photo = Photo::create(['file'=> $name] );
+            $input['photo_id'] = $photo -> id;
+        }
+
+       
+        $user -> update($input);
+        return \redirect ('/admin/users');
         //
     }
 
@@ -109,5 +139,11 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+       $user =  User::findOrFail($id);
+       unlink(\public_path().'/images/'. $user->photo->file);
+       $user->delete();
+        Session::flash('deleted_user', 'The user has been deleted');
+        //để thông báo khi user bị xóa
+        return \redirect('/admin/users');
     }
 }
