@@ -7,7 +7,8 @@
 <h1>Edit Users</h1>
 
 <div class="col-sm-3">
-{{$user->photo? $user ->photo -> file : 'no user photo'}}
+<img src="{{$user->photo? asset('/images/'.$user->photo->file) :'http://placehold.it/400x400'}}  " class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+
 
 </div>
 
@@ -58,7 +59,7 @@
 @stop
 
 <!-- HTML form builder là bên thứ 3 nhằm đơn giản hóa code trong form
-trang collective đã k còn hoạt động, tham khảo cách cài HTML Form và 
+trang collective đã k còn hoạt động, tham khảo cách cài HTML Form và
 các syntax ở các trang khác, vẫn chạy tốt trên Laravel 5+
 Các giá trị như is_active, photo_id ... là viết theo ten của column
 trong database để request có thể tương tác với database
