@@ -7,7 +7,7 @@
 <h1>Edit Users</h1>
 
 <div class="col-sm-3">
-<img src="{{$user->photo? asset('/images/'.$user->photo->file) :'http://placehold.it/400x400'}}  " class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+<img src="{{$user->photo? asset('/images/'.$user->photo->file) :'http://placehold.it/400x400'}}" class="img-circle" alt="">
 
 
 </div>

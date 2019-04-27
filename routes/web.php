@@ -31,7 +31,7 @@ Route::group(['middleware' => 'admin'], function(){
             'create'=>'admin.users.create',
             'store'=>'admin.users.store',
             'edit'=>'admin.users.edit'
-            ]]);
+        ]]);
 
         Route::resource('/admin/posts', 'AdminPostsController', ['names'=>[
 
@@ -40,7 +40,16 @@ Route::group(['middleware' => 'admin'], function(){
             'create'=>'admin.posts.create',
             'store'=>'admin.posts.store',
             'edit'=>'admin.posts.edit'
-            ]]);
+        ]]);
+
+        Route::resource('/admin/categories', 'AdminCategoriesController', ['names'=>[
+
+
+            'index'=>'admin.categories.index',
+            'create'=>'admin.categories.create',
+            'store'=>'admin.categories.store',
+            'edit'=>'admin.categories.edit'
+        ]]);
 });
 
 
