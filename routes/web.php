@@ -50,6 +50,15 @@ Route::group(['middleware' => 'admin'], function(){
             'store'=>'admin.categories.store',
             'edit'=>'admin.categories.edit'
         ]]);
+
+        Route::resource('/admin/media', 'AdminMediaController', ['names'=>[
+
+
+            'index'=>'admin.media.index',
+            'create'=>'admin.media.create',
+            'store'=>'admin.media.store',
+            'edit'=>'admin.media.edit'
+        ]]);
 });
 
 
