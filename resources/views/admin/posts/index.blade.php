@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
             <th>Photo</th>
             <th>Title</th>
             <th>Body</th>
+            <th>Link Post</th>
+            <th>Link Comment</th>
             <th>Created</th>
             <th>Updated</th>
         </tr>
@@ -27,6 +29,8 @@ use Illuminate\Support\Str;
             <td><img height="30" src="{{$post->photo ? asset('/images/'.$post->photo->file) : $post->photoPlaceholder()}}" alt="" ></td>
             <td>{{$post->title}}</td>
             <td>{{Str::limit($post->body,20)}}</td>
+            <td><a href="{{route('home.post', $post->id)}}">View Post</a></td>
+            <td><a href="{{route('posts.show', $post->id)}}">View Comments</a></td>
             <td>{{$post->created_at->diffForhumans()}}</td>
             <td>{{$post->updated_at->diffForhumans()}}</td>
         </tr>

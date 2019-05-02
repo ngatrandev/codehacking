@@ -17,13 +17,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/admin', function(){
-    return view('admin.index');
-});
+Route::get('/post/{id}', 'AdminPostsController@post')->name('home.post');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'admin'], function(){
+
+        Route::get('/admin', function(){
+            return view('admin.index');
+        });
+
         Route::resource('/admin/users', 'AdminUsersController', ['names'=>[
 
 
@@ -59,7 +62,30 @@ Route::group(['middleware' => 'admin'], function(){
             'store'=>'admin.media.store',
             'edit'=>'admin.media.edit'
         ]]);
+
+        Route::resource('/admin/comments', 'PostCommentsController', ['names'=>[
+
+
+            'index'=>'admin.comments.index',
+            'create'=>'admin.comments.create',
+            'store'=>'admin.comments.store',
+            'edit'=>'admin.comments.edit'
+        ]]);
+
+        Route::resource('/admin/comment/replies', 'CommentRepliesController', ['names'=>[
+
+
+            'index'=>'admin.comment.replies.index',
+            'create'=>'admin.comment.replies.create',
+            'store'=>'admin.comment.replies.store',
+            'edit'=>'admin.comment.replies.edit'
+        ]]);
 });
 
 
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::post('comment/reply', 'CommentRepliesController@createReply');
+
+});
+// middleware auth yêu cầu user phải login

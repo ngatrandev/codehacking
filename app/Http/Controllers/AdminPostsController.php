@@ -78,6 +78,9 @@ class AdminPostsController extends Controller
     public function show($id)
     {
         //
+        $post=Post::findOrFail($id);
+        $comments=$post->comments;
+        return view('admin.comments.show', compact('comments'));
 
     }
 
@@ -146,5 +149,12 @@ class AdminPostsController extends Controller
         $post->delete();//xóa post trong database
 
         return \redirect('/admin/posts');
+    }
+
+    public function post($id) {
+        $post = Post::findOrFail($id);
+        $comments = $post->comments()->whereIsActive(1)->get();
+
+        return view('post', \compact('post', 'comments'));
     }
 }

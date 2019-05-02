@@ -16,3 +16,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 
 @endsection
+
+
+{{--
+  Ở file layouts/admin.blade.php phải có
+  @yield('styles')
+  @yield('content')
+  @yield('scripts')
+  để dynamic với các @section bên file này
+    --}}
