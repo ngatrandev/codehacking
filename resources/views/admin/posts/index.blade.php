@@ -29,7 +29,7 @@ use Illuminate\Support\Str;
             <td><img height="30" src="{{$post->photo ? asset('/images/'.$post->photo->file) : $post->photoPlaceholder()}}" alt="" ></td>
             <td>{{$post->title}}</td>
             <td>{{Str::limit($post->body,20)}}</td>
-            <td><a href="{{route('home.post', $post->id)}}">View Post</a></td>
+            <td><a href="{{route('home.post', $post->slug)}}">View Post</a></td>
             <td><a href="{{route('posts.show', $post->id)}}">View Comments</a></td>
             <td>{{$post->created_at->diffForhumans()}}</td>
             <td>{{$post->updated_at->diffForhumans()}}</td>
@@ -38,6 +38,13 @@ use Illuminate\Support\Str;
     @endif
     </tbody>
 </table>
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-5">
+        {{$posts->render()}}
+    </div>
+
+</div>
 
 
 @stop

@@ -24,7 +24,7 @@
                     <td><img height="50" src="{{asset('/images/'.$reply->photo)}}" alt=""></td>
                     <td>{{$reply->email}}</td>
                     <td>{{Str::limit($reply->body,30)}}</td>
-                    <td><a href="{{route('home.post', $post->id)}}">View Post</a></td>
+                    <td><a href="{{route('home.post', $post->slug)}}">View Post</a></td>
                     <td>
                         @if ($reply->is_active==1)
                         <div>

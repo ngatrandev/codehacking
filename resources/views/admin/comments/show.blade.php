@@ -24,7 +24,7 @@
                     <td><img height="50" src="{{asset('/images/'.$comment->photo)}}" alt=""></td>
                     <td>{{$comment->email}}</td>
                     <td>{{Str::limit($comment->body,30)}}</td>
-                    <td><a href="{{route('home.post', $comment ->post->id)}}">View Post</a></td>
+                    <td><a href="{{route('home.post', $comment ->post->slug)}}">View Post</a></td>
                     <td>
                         @if ($comment->is_active==1)
                         <div>
